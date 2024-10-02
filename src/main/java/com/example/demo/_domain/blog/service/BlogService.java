@@ -37,4 +37,18 @@ public class BlogService {
 		// Optional 타입에 대해서 직접 조사하고 숙지 하세요(테스트 코드 작성)
 		return postRepository.findById(id).orElseThrow( () -> new Exception400("해당 게시글이 없습니다."));
 	}
+	
+	public Article update(Integer id, ArticleDTO dto) {
+		
+		// 수정 로직
+		Article articleEntity = postRepository.findById(id).orElseThrow( () -> new Exception400("not found : " + id));
+		
+		// 객체 상태 값 변경
+		articleEntity.update(dto.getTitle(), dto.getContent());
+		
+	//		// DB 에 save 처리
+	//		postRepository.save(articleEntity);
+		
+		return articleEntity;
+	}
 }
